@@ -1,0 +1,12 @@
+.container__home {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header__home {
+    font-weight: 900;
+    font-size: 10rem;
+}
