@@ -3,8 +3,12 @@ import "stylesheets/Home.css";
 
 const Home = () => {
     return (
-        <div className="container__home">
-            <header className="header__home">Welcome</header>
+        <div className="home__container">
+            <header className="home__header">Welcome</header>
+            <span className="home__description">This</span>
+            <span className="home__description">is</span>
+            <span className="home__description">my</span>
+            <span className="home__description">FireWorks</span>
         </div>
     );
 };
