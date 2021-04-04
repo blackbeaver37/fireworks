@@ -1,14 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "stylesheets/Home.css";
+import urls from "urls";
 
 const Home = () => {
     return (
         <div className="home__container">
-            <header className="home__header">Welcome</header>
-            <span className="home__description">This</span>
-            <span className="home__description">is</span>
-            <span className="home__description">my</span>
-            <span className="home__description">FireWorks</span>
+            <header className="home__header">Home</header>
+            <Link className="home__link" to={urls.root}>
+                Go Back
+            </Link>
         </div>
     );
 };
