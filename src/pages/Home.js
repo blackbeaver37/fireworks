@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "stylesheets/Home.css";
+import "stylesheets/pages/Home.css";
 import urls from "urls";
 
 const Home = () => {

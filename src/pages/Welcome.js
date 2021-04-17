@@ -1,9 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import urls from "urls";
-import "stylesheets/Welcome.css";
+import "stylesheets/pages/Welcome.css";
 
 const Welcome = () => {
+    const histoy = useHistory();
+    const goHome = () => {
+        histoy.push(urls.home);
+    };
+
+    window.onkeyup = (event) => {
+        if (event.keyCode === 13) {
+            goHome();
+        }
+    };
+
     return (
         <div className="welcome__container">
             <header className="welcome__header">Welcome</header>
