@@ -7,6 +7,9 @@ const Home = () => {
     return (
         <div className="home__container">
             <header className="home__header">Home</header>
+            <Link className="home__link" to={urls.roadmap}>
+                RoadMap
+            </Link>
             <Link className="home__link" to={urls.root}>
                 Go Back
             </Link>

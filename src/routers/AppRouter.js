@@ -4,6 +4,7 @@ import Home from "pages/Home";
 import Welcome from "pages/Welcome";
 import urls from "urls";
 import NotFound from "pages/NotFound";
+import RoadMap from "pages/RoadMap";
 
 const AppRouter = () => {
     return (
@@ -14,6 +15,9 @@ const AppRouter = () => {
                 </Route>
                 <Route exact path={urls.home}>
                     <Home />
+                </Route>
+                <Route exact path={urls.roadmap}>
+                    <RoadMap />
                 </Route>
                 <Route path="*">
                     <NotFound />

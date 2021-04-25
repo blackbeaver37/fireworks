@@ -4,6 +4,7 @@
 /* font-family: 'Abel', sans-serif; */
 @import url("https://fonts.googleapis.com/css2?family=Abel&display=swap");
 @import "var.css";
+@import "animation.css";
 
 body {
     font-family: "Roboto", sans-serif;

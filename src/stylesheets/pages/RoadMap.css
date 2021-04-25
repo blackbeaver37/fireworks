@@ -1,4 +1,4 @@
-.home__container {
+.notfound__container {
     height: 100%;
     width: 100%;
     display: flex;
@@ -8,22 +8,19 @@
     user-select: none;
 }
 
-.home__header {
+.notfound__header {
     font-weight: 900;
     font-size: 10rem;
 }
 
-.home__link {
+.notfound__link {
     position: relative;
     font-family: "Abel", sans-serif;
-    opacity: 0;
     font-weight: 400;
     font-size: 3rem;
-    animation: fadeIn 1s forwards;
-    margin-top: 1rem;
 }
 
-.home__link::before {
+.notfound__link::before {
     content: "";
     position: absolute;
     width: 100%;
@@ -36,7 +33,7 @@
     transition: all 0.3s ease-in-out 0s;
 }
 
-.home__link:hover::before {
+.notfound__link:hover::before {
     visibility: visible;
     transform: scaleX(1);
 }
