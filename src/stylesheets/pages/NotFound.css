@@ -1,4 +1,4 @@
-.roadmap__container {
+.notfound__container {
     height: 100%;
     width: 100%;
     display: flex;
@@ -8,19 +8,19 @@
     user-select: none;
 }
 
-.roadmap__header {
+.notfound__header {
     font-weight: 900;
     font-size: 10rem;
 }
 
-.roadmap__link {
+.notfound__link {
     position: relative;
     font-family: "Abel", sans-serif;
     font-weight: 400;
     font-size: 3rem;
 }
 
-.roadmap__link::before {
+.notfound__link::before {
     content: "";
     position: absolute;
     width: 100%;
@@ -33,7 +33,7 @@
     transition: all 0.3s ease-in-out 0s;
 }
 
-.roadmap__link:hover::before {
+.notfound__link:hover::before {
     visibility: visible;
     transform: scaleX(1);
 }

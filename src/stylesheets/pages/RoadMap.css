@@ -1,4 +1,4 @@
-.notfound__container {
+.roadmap__container {
     height: 100%;
     width: 100%;
     display: flex;
@@ -8,19 +8,64 @@
     user-select: none;
 }
 
-.notfound__header {
+.roadmap__header {
     font-weight: 900;
     font-size: 10rem;
 }
 
-.notfound__link {
+.roadmap__content {
+    margin: 2rem 30vw;
+    height: 65vh;
+    width: 70vw;
+    position: relative;
+    overflow-x: unset;
+    overflow-y: auto;
+}
+
+.roadmap__content::-webkit-scrollbar {
+    visibility: hidden;
+}
+
+.roadmap__content__profile,
+.roadmap__content__profile img,
+.roadmap__content__profile span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.1s ease-in-out;
+}
+
+.roadmap__content__profile {
+    cursor: pointer;
+}
+
+.roadmap__content__profile span {
+    text-align: center;
+    font-size: small;
+    opacity: 0;
+}
+
+.roadmap__content__profile:hover img {
+    opacity: 0.5;
+}
+.roadmap__content__profile:hover span {
+    opacity: 1;
+}
+
+.roadmap__content__button {
+    width: 7.5rem;
+    border-radius: 25%;
+}
+
+.roadmap__link {
     position: relative;
     font-family: "Abel", sans-serif;
     font-weight: 400;
     font-size: 3rem;
 }
 
-.notfound__link::before {
+.roadmap__link::before {
     content: "";
     position: absolute;
     width: 100%;
@@ -33,7 +78,59 @@
     transition: all 0.3s ease-in-out 0s;
 }
 
-.notfound__link:hover::before {
+.roadmap__link:hover::before {
     visibility: visible;
     transform: scaleX(1);
+}
+
+.roadmap__content__repo-block {
+    position: relative;
+    font-family: "Abel", sans-serif;
+    display: inline-block;
+    width: 40%;
+    height: 7rem;
+    padding: 1% 2.5%;
+    margin: 1% 2.5%;
+    background-color: var(--main-title-color);
+    color: var(--main-bg-color);
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+
+.roadmap__content__repo-block:hover {
+    background-color: var(--main-title-color-op-5);
+}
+
+.roadmap__content__repo-block:hover span {
+    opacity: 0.5;
+}
+.roadmap__content__repo-block:hover a {
+    opacity: 1;
+}
+
+.roadmap__content__repo-block a {
+    position: absolute;
+    width: fit-content;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.1s ease-in-out;
+    color: var(--main-title-color);
+    opacity: 0;
+}
+
+.repo-title {
+    font-size: 2rem;
+    display: block;
+}
+
+.repo-date,
+.repo-language {
+    color: var(--text-color-gray);
+    font-size: 0.75rem;
+}
+
+.repo-date {
+    display: block;
 }
