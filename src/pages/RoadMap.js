@@ -11,11 +11,19 @@ import {
     faJsSquare,
     faPython,
 } from "@fortawesome/free-brands-svg-icons";
-import { faBorderNone, faCopyright } from "@fortawesome/free-solid-svg-icons";
+import {
+    faBorderNone,
+    faCopyright,
+    faSortDown,
+    faSortUp,
+    faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 
 const RoadMap = () => {
     const [showProfile, setShowProfile] = useState(false);
     const [showAllRepo, setShowAllRepo] = useState(false);
+    const [sortBy, setSortBy] = useState("pushed");
+    const [sortByDirection, setSortByDirection] = useState("desc");
 
     const {
         loading: profileLoading,
@@ -23,9 +31,7 @@ const RoadMap = () => {
         data: profileData,
         refetch: profileRefetch,
     } = useAxios({
-        url:
-            "https://api.github.com/users/" +
-            process.env.REACT_APP_GITHUB_USERID,
+        url: `https://api.github.com/users/${process.env.REACT_APP_GITHUB_USERID}`,
     });
 
     const {
@@ -34,16 +40,46 @@ const RoadMap = () => {
         data: allRepoData,
         refetch: allRepoRefetch,
     } = useAxios({
-        url:
-            "https://api.github.com/users/" +
-            process.env.REACT_APP_GITHUB_USERID +
-            "/repos?sort=pushed",
+        url: `https://api.github.com/users/${process.env.REACT_APP_GITHUB_USERID}/repos?sort=${sortBy}&direction=${sortByDirection}`,
     });
 
     const handleShowAllRepoBtn = () => {
         setShowProfile(false);
+        allRepoRefetch();
         setShowAllRepo(true);
-        console.log(`Profile: ${showProfile}\nALLRepo: ${showAllRepo}`);
+    };
+
+    const handleHideAllRepoBtn = () => {
+        setSortBy("pushed");
+        setSortByDirection("desc");
+        setShowAllRepo(false);
+        setShowProfile(true);
+    };
+
+    const toogleSortBy = () => {
+        setShowAllRepo(false);
+        if (sortBy === "pushed") {
+            setSortBy("updated");
+        } else if (sortBy === "updated") {
+            setSortBy("created");
+        } else if (sortBy === "created") {
+            setSortBy("full_name");
+        } else if (sortBy === "full_name") {
+            setSortBy("pushed");
+        }
+        allRepoRefetch();
+        setShowAllRepo(true);
+    };
+
+    const toogleSortByDirection = () => {
+        setShowAllRepo(false);
+        if (sortByDirection === "asc") {
+            setSortByDirection("desc");
+        } else {
+            setSortByDirection("asc");
+        }
+        allRepoRefetch();
+        setShowAllRepo(true);
     };
 
     const formattingDate = (rawDateStr) => {
@@ -132,50 +168,98 @@ const RoadMap = () => {
         <div className="roadmap__container">
             <header className="roadmap__header">RoadMap</header>
             <div className="roadmap__content">
-                {!profileLoading ? (
-                    <>
-                        {showProfile && (
-                            <div
-                                className="roadmap__content__profile"
-                                onClick={handleShowAllRepoBtn}
-                            >
-                                <img
-                                    className="roadmap__content__button"
-                                    src={profileData.data.avatar_url}
-                                    alt="Github Profile Avatar"
-                                />
-                                <span>See All Repositories</span>
+                {showAllRepo && (
+                    <div className="roadmap__content-nav">
+                        <div className="roadmap__content-nav-sort">
+                            <div onClick={toogleSortBy}>
+                                {sortBy === "pushed" && "Pushed"}
+                                {sortBy === "updated" && "Updated"}
+                                {sortBy === "created" && "Created"}
+                                {sortBy === "full_name" && "Name"}
                             </div>
-                        )}
-                        {showAllRepo &&
-                            allRepoData.data.map((repo, index) => (
-                                <div
-                                    key={index}
-                                    className="roadmap__content__repo-block"
-                                    onClick={() =>
-                                        window.open(repo.html_url, "_blank")
-                                    }
-                                >
-                                    <span className="repo-title">
-                                        {repo.name}
-                                    </span>
-                                    <span className="repo-language">
-                                        {selectIcon(repo.language)}{" "}
-                                        {repo.language ? repo.language : "None"}
-                                    </span>
-                                    <span className="repo-date">
-                                        (Create)
-                                        {formattingDate(repo.created_at)}{" "}
-                                        (Update)
-                                        {formattingDate(repo.updated_at)}
-                                    </span>
-                                    <a>Go Github Repository</a>
-                                </div>
-                            ))}
-                    </>
-                ) : (
-                    <span>Loading...</span>
+                            <div onClick={toogleSortByDirection}>
+                                {sortByDirection === "asc" && (
+                                    <FontAwesomeIcon icon={faSortUp} />
+                                )}
+                                {sortByDirection === "desc" && (
+                                    <FontAwesomeIcon icon={faSortDown} />
+                                )}
+                            </div>
+                        </div>
+                        <div
+                            className="roadmap__content-nav-close"
+                            onClick={handleHideAllRepoBtn}
+                        >
+                            <FontAwesomeIcon icon={faTimes} />
+                        </div>
+                    </div>
                 )}
+                <div className="roadmap__content-div">
+                    {!profileLoading ? (
+                        <>
+                            {showProfile && (
+                                <div
+                                    className="roadmap__content__profile"
+                                    onClick={handleShowAllRepoBtn}
+                                >
+                                    <img
+                                        className="roadmap__content__button"
+                                        src={profileData.data.avatar_url}
+                                        alt="Github Profile Avatar"
+                                        draggable="false"
+                                    />
+                                    <span>See All Repositories</span>
+                                </div>
+                            )}
+                            {showAllRepo && (
+                                <>
+                                    {allRepoData.data.map((repo, index) => (
+                                        <div
+                                            key={index}
+                                            className="roadmap__content__repo-block"
+                                            onClick={() =>
+                                                window.open(
+                                                    repo.html_url,
+                                                    "_blank"
+                                                )
+                                            }
+                                        >
+                                            <span className="repo-title">
+                                                {repo.name}
+                                            </span>
+                                            <span className="repo-language">
+                                                {selectIcon(repo.language)}{" "}
+                                                {repo.language
+                                                    ? repo.language
+                                                    : "None"}
+                                            </span>
+                                            <span className="repo-date">
+                                                (Create)
+                                                {formattingDate(
+                                                    repo.created_at
+                                                )}{" "}
+                                                (Update)
+                                                {formattingDate(
+                                                    repo.updated_at
+                                                )}
+                                            </span>
+                                            <span className="repo-date">
+                                                https://raw.githubusercontent.com/
+                                                {repo.full_name}
+                                                /master/__untag.json
+                                            </span>
+                                            <a>Go Github Repository</a>
+                                        </div>
+                                    ))}
+                                </>
+                            )}
+                        </>
+                    ) : (
+                        <span className="roadmap__content__loading-span">
+                            Loading...
+                        </span>
+                    )}
+                </div>
             </div>
             <Link className="roadmap__link" to={urls.home}>
                 Go Home
