@@ -2,50 +2,75 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "stylesheets/pages/RoadMap.css";
 import urls from "urls";
-import useAxios from "@unsooks/use-axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faCss3Alt,
-    faHtml5,
-    faJava,
-    faJsSquare,
-    faPython,
-} from "@fortawesome/free-brands-svg-icons";
-import {
-    faBorderNone,
-    faCopyright,
     faSortDown,
     faSortUp,
     faTimes,
 } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import RepoBlock from "partials/RepoBlock";
 
 const RoadMap = () => {
+    const [initProfile, setInitProfile] = useState(false);
+    const [currentProfile, setCurrentProfile] = useState({});
+
+    const [initRepoList, setInitRepoList] = useState(false);
+    const [repoList, setRepoList] = useState([]);
+
     const [showProfile, setShowProfile] = useState(false);
     const [showAllRepo, setShowAllRepo] = useState(false);
+
     const [sortBy, setSortBy] = useState("pushed");
     const [sortByDirection, setSortByDirection] = useState("desc");
 
-    const {
-        loading: profileLoading,
-        error: profileError,
-        data: profileData,
-        refetch: profileRefetch,
-    } = useAxios({
-        url: `https://api.github.com/users/${process.env.REACT_APP_GITHUB_USERID}`,
-    });
+    const getCurrentProfile = async () => {
+        const {
+            data: { avatar_url },
+        } = await axios.get(
+            `https://api.github.com/users/${process.env.REACT_APP_GITHUB_USERID}`
+        );
 
-    const {
-        loading: allRepoLoading,
-        error: allRepoError,
-        data: allRepoData,
-        refetch: allRepoRefetch,
-    } = useAxios({
-        url: `https://api.github.com/users/${process.env.REACT_APP_GITHUB_USERID}/repos?sort=${sortBy}&direction=${sortByDirection}`,
-    });
+        setCurrentProfile({ avatar_url });
+        setInitProfile(true);
+    };
 
-    const handleShowAllRepoBtn = () => {
+    const getRepoList = async () => {
+        setInitRepoList(false);
+        setRepoList([]);
+        await axios
+            .get(
+                `https://api.github.com/users/${process.env.REACT_APP_GITHUB_USERID}/repos?sort=${sortBy}&direction=${sortByDirection}`
+            )
+            .then(({ data }) => {
+                data.map(
+                    ({
+                        name,
+                        html_url,
+                        language,
+                        full_name,
+                        created_at,
+                        updated_at,
+                    }) =>
+                        setRepoList((prev) => [
+                            ...prev,
+                            {
+                                name,
+                                html_url,
+                                language,
+                                full_name,
+                                created_at,
+                                updated_at,
+                            },
+                        ])
+                );
+                setInitRepoList(true);
+            });
+    };
+
+    const handleShowAllRepoBtn = async () => {
         setShowProfile(false);
-        allRepoRefetch();
+        await getRepoList();
         setShowAllRepo(true);
     };
 
@@ -53,10 +78,11 @@ const RoadMap = () => {
         setSortBy("pushed");
         setSortByDirection("desc");
         setShowAllRepo(false);
+        setInitRepoList(false);
         setShowProfile(true);
     };
 
-    const toogleSortBy = () => {
+    const toogleSortBy = async () => {
         setShowAllRepo(false);
         if (sortBy === "pushed") {
             setSortBy("updated");
@@ -67,101 +93,24 @@ const RoadMap = () => {
         } else if (sortBy === "full_name") {
             setSortBy("pushed");
         }
-        allRepoRefetch();
+        await getRepoList();
         setShowAllRepo(true);
     };
 
-    const toogleSortByDirection = () => {
+    const toogleSortByDirection = async () => {
         setShowAllRepo(false);
         if (sortByDirection === "asc") {
             setSortByDirection("desc");
         } else {
             setSortByDirection("asc");
         }
-        allRepoRefetch();
+        await getRepoList();
         setShowAllRepo(true);
     };
 
-    const formattingDate = (rawDateStr) => {
-        var date = new Date(rawDateStr);
-        var year = date.getFullYear();
-        var month = 1 + date.getMonth();
-        month = month >= 10 ? month : "0" + month;
-        var day = date.getDate();
-        day = day >= 10 ? day : "0" + day;
-        var hour = date.getHours();
-        hour = hour >= 10 ? hour : "0" + hour;
-        var minutes = date.getMinutes();
-        minutes = minutes >= 10 ? minutes : "0" + minutes;
-        var seconds = date.getSeconds();
-        seconds = seconds >= 10 ? seconds : "0" + seconds;
-
-        return `${year}/${month}/${day} ${hour}:${minutes}:${seconds}`;
-    };
-
-    const selectIcon = (language) => {
-        if (language === null) {
-            return (
-                <FontAwesomeIcon
-                    icon={faBorderNone}
-                    style={{ color: "var(--text-gray)" }}
-                />
-            );
-        } else if (language === "CSS") {
-            return (
-                <FontAwesomeIcon
-                    icon={faCss3Alt}
-                    style={{ color: "var(--icon-css)" }}
-                />
-            );
-        } else if (language === "JavaScript") {
-            return (
-                <FontAwesomeIcon
-                    icon={faJsSquare}
-                    style={{ color: "var(--icon-js)" }}
-                />
-            );
-        } else if (language === "HTML") {
-            return (
-                <FontAwesomeIcon
-                    icon={faHtml5}
-                    style={{ color: "var(--icon-html)" }}
-                />
-            );
-        } else if (language === "Java") {
-            return (
-                <FontAwesomeIcon
-                    icon={faJava}
-                    style={{ color: "var(--icon-java)" }}
-                />
-            );
-        } else if (language === "C#") {
-            return (
-                <FontAwesomeIcon
-                    icon={faCopyright}
-                    style={{ color: "var(--icon-csharp)" }}
-                />
-            );
-        } else if (language === "C++" || language === "C") {
-            return (
-                <FontAwesomeIcon
-                    icon={faCopyright}
-                    style={{ color: "var(--icon-cpp)" }}
-                />
-            );
-        } else if (language === "Python") {
-            return (
-                <FontAwesomeIcon
-                    icon={faPython}
-                    style={{ color: "var(--icon-python)" }}
-                />
-            );
-        }
-    };
-
     useEffect(() => {
+        getCurrentProfile();
         setShowProfile(true);
-        setShowAllRepo(false);
     }, []);
 
     return (
@@ -195,7 +144,7 @@ const RoadMap = () => {
                     </div>
                 )}
                 <div className="roadmap__content-div">
-                    {!profileLoading ? (
+                    {initProfile ? (
                         <>
                             {showProfile && (
                                 <div
@@ -204,52 +153,17 @@ const RoadMap = () => {
                                 >
                                     <img
                                         className="roadmap__content__button"
-                                        src={profileData.data.avatar_url}
+                                        src={currentProfile.avatar_url}
                                         alt="Github Profile Avatar"
                                         draggable="false"
                                     />
                                     <span>See All Repositories</span>
                                 </div>
                             )}
-                            {showAllRepo && (
+                            {showAllRepo && initRepoList && (
                                 <>
-                                    {allRepoData.data.map((repo, index) => (
-                                        <div
-                                            key={index}
-                                            className="roadmap__content__repo-block"
-                                            onClick={() =>
-                                                window.open(
-                                                    repo.html_url,
-                                                    "_blank"
-                                                )
-                                            }
-                                        >
-                                            <span className="repo-title">
-                                                {repo.name}
-                                            </span>
-                                            <span className="repo-language">
-                                                {selectIcon(repo.language)}{" "}
-                                                {repo.language
-                                                    ? repo.language
-                                                    : "None"}
-                                            </span>
-                                            <span className="repo-date">
-                                                (Create)
-                                                {formattingDate(
-                                                    repo.created_at
-                                                )}{" "}
-                                                (Update)
-                                                {formattingDate(
-                                                    repo.updated_at
-                                                )}
-                                            </span>
-                                            <span className="repo-date">
-                                                https://raw.githubusercontent.com/
-                                                {repo.full_name}
-                                                /master/__untag.json
-                                            </span>
-                                            <a>Go Github Repository</a>
-                                        </div>
+                                    {repoList.map((repo, index) => (
+                                        <RepoBlock key={index} repo={repo} />
                                     ))}
                                 </>
                             )}
