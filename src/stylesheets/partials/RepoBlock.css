@@ -17,7 +17,8 @@
     background-color: var(--main-title-color-op-5);
 }
 
-.repo-block:hover span {
+.repo-block:hover span,
+.repo-block:hover div {
     opacity: 0.5;
 }
 .repo-block:hover a {

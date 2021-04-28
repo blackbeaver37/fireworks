@@ -42,7 +42,6 @@ const RepoBlock = ({ repo }) => {
             .then(({ data: { tag } }) => {
                 setTag(tag);
                 setInitTag(true);
-                console.log(tag);
             });
     };
 
