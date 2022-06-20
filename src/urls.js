@@ -1,5 +1,5 @@
 const urls = {
-    root: "/",
+    root: "/fireworks",
     home: "/home",
     roadmap: "/roadmap",
 };
