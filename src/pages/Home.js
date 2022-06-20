@@ -10,6 +10,16 @@ const Home = () => {
             <Link className="home__link" to={urls.roadmap}>
                 RoadMap
             </Link>
+            <a
+                className="home__link"
+                href="http://stemfont.ssu.ac.kr:8181"
+                target="_blank"
+            >
+                STEMFONT
+            </a>
+            <span className="home__link__desc">ID : tester / PW : tester</span>
+            <br />
+            <br />
             <Link className="home__link" to={urls.root}>
                 Go Back
             </Link>

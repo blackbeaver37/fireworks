@@ -40,3 +40,9 @@
     visibility: visible;
     transform: scaleX(1);
 }
+
+.home__link__desc {
+    font-size: 15px;
+    margin-top: 11px;
+    opacity: 0.5;
+}
