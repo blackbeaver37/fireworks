@@ -1,22 +1,13 @@
 import Head from "next/head";
-import Link from "next/link";
-import Router from "next/router";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
-import {
-    container,
-    header,
-    description,
-    anchor,
-} from "styles/Index.module.scss";
 import { root } from "styles/Global.module.scss";
 import urls from "urls";
 
 const Index = () => {
+    const router = useRouter();
     useEffect(() => {
-        window.onkeyup = (e) => {
-            e.preventDefault();
-            if (e.keyCode === 13) Router.push(urls.home);
-        };
+        router.push(urls.root);
     }, []);
 
     return (
@@ -29,17 +20,6 @@ const Index = () => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-
-            <div className={container}>
-                <header className={header}>Welcome</header>
-                <span className={description}>This</span>
-                <span className={description}>is</span>
-                <span className={description}>my</span>
-                <span className={description}>FireWorks</span>
-                <Link href={urls.home}>
-                    <span className={anchor}>Enter</span>
-                </Link>
-            </div>
         </div>
     );
 };
