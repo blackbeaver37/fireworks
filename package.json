@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
@@ -21,6 +23,8 @@
   "devDependencies": {
     "eslint": "8.15.0",
     "eslint-config-next": "12.1.6",
+    "gh-pages": "^4.0.0",
     "sass": "^1.51.0"
-  }
+  },
+  "homepage": "https://blackbeaver37.github.io/fireworks/"
 }
