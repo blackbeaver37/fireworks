@@ -1,0 +1,71 @@
+.block {
+    position: relative;
+    font-family: "Abel", sans-serif;
+    display: inline-block;
+    width: 40%;
+    height: 7rem;
+    padding: 1% 2.5%;
+    margin: 1% 2.5%;
+    background-color: var(--main-title-color);
+    color: var(--main-bg-color);
+    border-radius: 1rem;
+    cursor: pointer;
+    animation: repo-block 1s;
+    &:hover {
+        background-color: var(--main-title-color-op-5);
+    }
+    &:hover span,
+    &:hover div {
+        opacity: 0.5;
+    }
+    &:hover a {
+        opacity: 1;
+    }
+    &:focus,
+    &:active {
+        transform: scale(0.8);
+        transition: transform 0.1s ease-in-out;
+    }
+    a {
+        position: absolute;
+        width: fit-content;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: opacity 0.1s ease-in-out;
+        color: var(--main-title-color);
+        opacity: 0;
+    }
+}
+
+@keyframes repo-block {
+    0% {
+        opacity: 0;
+        transform: translateY(-20rem);
+    }
+    33% {
+        opacity: 1;
+        transform: translateY(-20rem);
+    }
+    66% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.title {
+    font-size: 2rem;
+    display: block;
+}
+
+.date,
+.languageSpan {
+    color: var(--text-color-gray);
+    font-size: 0.75rem;
+}
+
+.date {
+    display: block;
+}
