@@ -3,6 +3,8 @@ import Link from "next/link";
 import { container, header, content, anchor } from "styles/Works.module.scss";
 import { root } from "styles/Global.module.scss";
 import urls from "urls";
+import PageHeader from "components/PageHeader";
+import PageFooter from "components/PageFooter";
 
 const Works = () => {
     return (
@@ -15,12 +17,10 @@ const Works = () => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+            <PageHeader title="Works" />
             <div className={container}>
-                <header className={header}>Works</header>
                 <div className={content}></div>
-                <Link href={urls.home}>
-                    <span className={anchor}>Go Home</span>
-                </Link>
+                <PageFooter href={urls.home} name="Go Home" />
             </div>
         </div>
     );

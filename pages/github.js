@@ -11,7 +11,7 @@ import {
     button,
     loading,
     anchor,
-} from "styles/Roadmap.module.scss";
+} from "styles/Github.module.scss";
 import { root } from "styles/Global.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -23,8 +23,10 @@ import urls from "urls";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import RepoBlock from "components/RepoBlock";
+import PageHeader from "components/PageHeader";
+import PageFooter from "components/PageFooter";
 
-const RoadMap = () => {
+const Github = () => {
     const [initProfile, setInitProfile] = useState(false);
     const [currentProfile, setCurrentProfile] = useState({});
 
@@ -136,8 +138,8 @@ const RoadMap = () => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+            <PageHeader title="Github" />
             <div className={container}>
-                <header className={header}>RoadMap</header>
                 <div className={content}>
                     {showAllRepo && (
                         <div className={nav}>
@@ -198,12 +200,10 @@ const RoadMap = () => {
                         )}
                     </div>
                 </div>
-                <Link href={urls.home}>
-                    <span className={anchor}>Go Home</span>
-                </Link>
+                <PageFooter href={urls.home} name="Go Home" />
             </div>
         </div>
     );
 };
 
-export default RoadMap;
+export default Github;

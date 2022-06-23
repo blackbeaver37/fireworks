@@ -1,8 +1,10 @@
 import Head from "next/head";
 import Link from "next/link";
-import { container, header, menus, anchor } from "styles/Home.module.scss";
+import { container, content, menus, anchor } from "styles/Home.module.scss";
 import { root } from "styles/Global.module.scss";
 import urls from "urls";
+import PageHeader from "components/PageHeader";
+import PageFooter from "components/PageFooter";
 
 const Home = () => {
     return (
@@ -15,19 +17,19 @@ const Home = () => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+            <PageHeader title="Home" />
             <div className={container}>
-                <header className={header}>Home</header>
-                <div className={menus}>
-                    <Link className={anchor} href={urls.roadmap}>
-                        <span className={anchor}>RoadMap</span>
-                    </Link>
-                    <Link className={anchor} href={urls.works}>
-                        <span className={anchor}>Works</span>
-                    </Link>
+                <div className={content}>
+                    <div className={menus}>
+                        <Link className={anchor} href={urls.github}>
+                            <span className={anchor}>Github</span>
+                        </Link>
+                        <Link className={anchor} href={urls.works}>
+                            <span className={anchor}>Works</span>
+                        </Link>
+                    </div>
                 </div>
-                <Link className={anchor} href={urls.root}>
-                    <span className={anchor}>Go Back</span>
-                </Link>
+                <PageFooter href={urls.root} name="Go Back" />
             </div>
         </div>
     );

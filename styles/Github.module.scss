@@ -1,5 +1,5 @@
 .container {
-    height: 100%;
+    height: 70%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -8,35 +8,12 @@
     user-select: none;
 }
 
-.header {
-    font-weight: 900;
-    font-size: 10rem;
-    animation: fadeIn__roadmap-header 1s;
-}
-
-@keyframes fadeIn__roadmap-header {
-    0% {
-        opacity: 0;
-        transform: translateY(20rem);
-    }
-    33% {
-        opacity: 1;
-        transform: translateY(20rem);
-    }
-    66% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
 .content {
     margin: 2rem 30vw;
     height: 65vh;
     width: 70vw;
     position: relative;
-    animation: fadeIn__roadmap-content 2s forwards;
+    animation: fadeIn__github-content 2s forwards;
     .nav {
         height: 5vh;
         display: flex;
@@ -101,7 +78,7 @@
     }
 }
 
-@keyframes fadeIn__roadmap-content {
+@keyframes fadeIn__github-content {
     0% {
         opacity: 0;
         transform: scale(0);
@@ -109,47 +86,6 @@
     33% {
         opacity: 0;
         transform: scale(0);
-    }
-    66% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-.anchor {
-    position: relative;
-    font-family: "Abel", sans-serif;
-    font-weight: 400;
-    font-size: 3rem;
-    animation: fadeIn__roadmap-link 1s;
-    &::before {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 4px;
-        bottom: -0.25rem;
-        left: 0;
-        background-color: var(--main-title-color);
-        visibility: hidden;
-        transform: scaleX(0);
-        transition: all 0.3s ease-in-out 0s;
-    }
-    &:hover::before {
-        visibility: visible;
-        transform: scaleX(1);
-    }
-}
-
-@keyframes fadeIn__roadmap-link {
-    0% {
-        opacity: 0;
-        transform: translateY(-20rem);
-    }
-    33% {
-        opacity: 1;
-        transform: translateY(-20rem);
     }
     66% {
         opacity: 1;

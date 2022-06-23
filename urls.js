@@ -1,7 +1,7 @@
 const urls = {
     root: "/fireworks",
     home: "/home",
-    roadmap: "/roadmap",
+    github: "/github",
     works: "/works",
 };
 

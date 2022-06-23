@@ -1,5 +1,5 @@
 .container {
-    height: 100%;
+    height: 70%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -13,13 +13,38 @@
     font-size: 10rem;
 }
 
+.content {
+    margin: 2rem 30vw;
+    height: 65vh;
+    width: 70vw;
+    position: relative;
+    animation: fadeIn__home-content 2s forwards;
+}
+
+@keyframes fadeIn__home-content {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    33% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    66% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 .menus {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    height: 40%;
-    margin: 36px 0;
+    height: 100%;
+    margin: 72px 0;
 }
 
 .anchor {
