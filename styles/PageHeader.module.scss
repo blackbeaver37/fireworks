@@ -1,13 +1,13 @@
-.header {
+.header__0 {
     font-weight: 900;
     font-size: 10rem;
-    animation: fadeIn__header 1s;
+    animation: fadeIn__header__0 1s;
     text-align: center;
     padding-top: 46px;
     user-select: none;
 }
 
-@keyframes fadeIn__header {
+@keyframes fadeIn__header__0 {
     0% {
         opacity: 0;
         transform: translateY(20rem);
@@ -15,6 +15,39 @@
     33% {
         opacity: 1;
         transform: translateY(20rem);
+    }
+    66% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.header__1 {
+    font-weight: 900;
+    font-size: 4rem;
+    animation: fadeIn__header__1 1s;
+    text-align: left;
+    padding-top: 24px;
+    padding-left: 24px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.header__1__span {
+    font-size: 1.6rem;
+    padding-left: 18px;
+    font-weight: 200;
+    user-select: none;
+}
+
+@keyframes fadeIn__header__1 {
+    0% {
+        opacity: 0;
+    }
+    33% {
+        opacity: 1;
     }
     66% {
         opacity: 1;

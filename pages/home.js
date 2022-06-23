@@ -17,10 +17,13 @@ const Home = () => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <PageHeader title="Home" />
+            <PageHeader title="Home" type={0} />
             <div className={container}>
                 <div className={content}>
                     <div className={menus}>
+                        <Link className={anchor} href={urls.blog}>
+                            <span className={anchor}>Blog</span>
+                        </Link>
                         <Link className={anchor} href={urls.github}>
                             <span className={anchor}>Github</span>
                         </Link>

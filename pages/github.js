@@ -138,7 +138,7 @@ const Github = () => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <PageHeader title="Github" />
+            <PageHeader title="Github" type={1} />
             <div className={container}>
                 <div className={content}>
                     {showAllRepo && (
@@ -200,7 +200,6 @@ const Github = () => {
                         )}
                     </div>
                 </div>
-                <PageFooter href={urls.home} name="Go Home" />
             </div>
         </div>
     );

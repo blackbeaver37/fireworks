@@ -1,12 +1,11 @@
 import Head from "next/head";
-import Link from "next/link";
-import { container, content, anchor } from "styles/Works.module.scss";
+import { container, content } from "styles/Blog.module.scss";
 import { root } from "styles/Global.module.scss";
 import urls from "urls";
 import PageHeader from "components/PageHeader";
 import PageFooter from "components/PageFooter";
 
-const Works = () => {
+const Blog = () => {
     return (
         <div className={root}>
             <Head>
@@ -17,18 +16,12 @@ const Works = () => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <PageHeader title="Works" type={1} />
+            <PageHeader title="Blog" type={1} />
             <div className={container}>
-                <div className={content}>
-                    <Link href="http://stemfont.ssu.ac.kr:8181">
-                        <a target="_blank" className={anchor}>
-                            STEMFONT
-                        </a>
-                    </Link>
-                </div>
+                <div className={content}></div>
             </div>
         </div>
     );
 };
 
-export default Works;
+export default Blog;
