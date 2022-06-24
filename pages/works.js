@@ -2,11 +2,24 @@ import Head from "next/head";
 import Link from "next/link";
 import { container, content, anchor } from "styles/Works.module.scss";
 import { root } from "styles/Global.module.scss";
-import urls from "urls";
 import PageHeader from "components/PageHeader";
-import PageFooter from "components/PageFooter";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import WorksBlock from "components/WorksBlock";
 
 const Works = () => {
+    const [works, setWorks] = useState([]);
+    const [initWorks, setInitWorks] = useState(false);
+    const getAllMyWorks = async () => {
+        const allWorks = await axios.get("/api/myWorks");
+        setWorks(allWorks.data.allWorks);
+        setInitWorks(true);
+    };
+    useEffect(() => {
+        setInitWorks(false);
+        getAllMyWorks();
+    }, []);
+
     return (
         <div className={root}>
             <Head>
@@ -20,11 +33,10 @@ const Works = () => {
             <PageHeader title="Works" type={1} />
             <div className={container}>
                 <div className={content}>
-                    <Link href="http://stemfont.ssu.ac.kr:8181">
-                        <a target="_blank" className={anchor}>
-                            STEMFONT
-                        </a>
-                    </Link>
+                    {initWorks &&
+                        works.map((work, index) => (
+                            <WorksBlock key={index} work={work} />
+                        ))}
                 </div>
             </div>
         </div>
