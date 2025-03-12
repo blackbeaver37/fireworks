@@ -1,2 +1,32 @@
-"node_modules/" 
-"dist/" 
+# Node modules
+node_modules/
+
+# Editor & System files
+.DS_Store
+.vscode/
+.idea/
+*.log
+
+# Environment variables
+.env
+
+# Yarn PnP (Plug'n'Play) 관련 파일
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
+# Yarn Berry의 설치된 패키지 캐시
+.yarn/cache/
+
+# PnP 사용 시 필요 없는 node_modules 제거
+.pnp.*
+.pnp.loader.mjs
+
+# 빌드 및 캐시 파일
+backend/dist/
+backend/test/
+frontend/.next/cache/
+node_modules/.cache/
+.yarn/unplugged/

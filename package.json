@@ -1,0 +1,19 @@
+{
+    "name": "fireworks",
+    "private": true,
+    "workspaces": [
+        "frontend",
+        "backend"
+    ],
+    "scripts": {
+        "lint": "eslint .",
+        "format": "prettier --write ."
+    },
+    "devDependencies": {
+        "@nestjs/schematics": "^11.0.2",
+        "eslint": "^8.0.0",
+        "husky": "^8.0.0",
+        "prettier": "^2.8.0"
+    },
+    "packageManager": "yarn@4.7.0"
+}
