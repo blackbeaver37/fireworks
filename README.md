@@ -65,8 +65,19 @@ fireworks/
 
 ---
 
-🔥 **현재 진행 상황**
-✅ 프로젝트 구조 확정
-✅ 기술 스택 결정
-✅ API 방식 & 배포 방식 확정
-🔜 NestJS 초기 설정 및 DB 모델링 진행
+## 🗄️ 데이터베이스 (PostgreSQL + Prisma)
+
+- 클라우드 DB: **Railway PostgreSQL**
+- ORM: **Prisma**
+- 마이그레이션: `yarn prisma migrate dev --name init`
+- Prisma 클라이언트 생성: `yarn prisma generate`
+
+## 🛠️ Yarn Workspaces 설정
+
+- PnP 비활성화 (`.yarnrc.yml` 수정 → `nodeLinker: node-modules`)
+- 패키지 설치 방식: `yarn install`
+- Prisma 사용 시:
+  ```sh
+  yarn prisma migrate dev --name init
+  yarn prisma generate
+  ```

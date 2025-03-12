@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// **사용자(User) 모델**
+/// - 사용자는 여러 개의 게시글(Post)을 작성할 수 있음 (1:N)
+/// - 사용자는 여러 개의 댓글(Comment)을 남길 수 있음 (1:N)
+model User {
+  id        String   @id @default(uuid())  // UUID 기본키 (고유 식별자)
+  email     String   @unique               // 이메일은 중복될 수 없음
+  name      String?                         // 이름 (선택 사항)
+  posts     Post[]                           // Post 모델과 관계 (1:N)
+  comments  Comment[]                        // Comment 모델과 관계 (1:N)
+  createdAt DateTime @default(now())        // 생성 시간 자동 추가
+}
+
+/// **게시글(Post) 모델**
+/// - 게시글은 하나의 사용자(User)와 연결됨 (N:1)
+/// - 게시글은 여러 개의 댓글(Comment)을 가질 수 있음 (1:N)
+model Post {
+  id        String   @id @default(uuid())  // UUID 기본키
+  title     String                           // 제목
+  content   String?                          // 내용 (선택 사항)
+  author    User     @relation(fields: [authorId], references: [id])  // User와 관계 설정
+  authorId  String
+  comments  Comment[]
+  createdAt DateTime @default(now())
+}
+
+/// **댓글(Comment) 모델**
+/// - 댓글은 하나의 게시글(Post)과 연결됨 (N:1)
+/// - 댓글은 하나의 사용자(User)와 연결됨 (N:1)
+model Comment {
+  id        String   @id @default(uuid())  // UUID 기본키
+  content   String                           // 댓글 내용
+  post      Post     @relation(fields: [postId], references: [id])  // Post와 관계
+  postId    String
+  author    User     @relation(fields: [authorId], references: [id])  // User와 관계
+  authorId  String
+  createdAt DateTime @default(now())        // 생성 시간 자동 추가
+}

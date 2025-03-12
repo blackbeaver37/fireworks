@@ -13,7 +13,11 @@
         "@nestjs/schematics": "^11.0.2",
         "eslint": "^8.0.0",
         "husky": "^8.0.0",
-        "prettier": "^2.8.0"
+        "prettier": "^2.8.0",
+        "prisma": "^6.5.0"
     },
-    "packageManager": "yarn@4.7.0"
+    "packageManager": "yarn@4.7.0",
+    "dependencies": {
+        "@prisma/client": "^6.5.0"
+    }
 }
