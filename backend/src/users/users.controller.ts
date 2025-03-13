@@ -6,8 +6,14 @@ import {
   Delete,
   Body,
   Param,
+  UsePipes,
+  ValidationPipe,
+  BadRequestException,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto'; // 📌 DTO 임포트
+import { UpdateUserDto } from './dto/update-user.dto'; // 📌 DTO 임포트
 
 @Controller('users') // 📌 모든 엔드포인트의 기본 경로를 `/users`로 설정
 export class UsersController {
@@ -29,7 +35,8 @@ export class UsersController {
    * @returns 해당 유저 데이터
    */
   @Get(':id')
-  async getUser(@Param('id') id: string) {
+  // UUID 검증 추가
+  async getUser(@Param('id', ParseUUIDPipe) id: string) {
     console.log(`🛠 [Controller] GET /users/${id} 요청 받음`);
     return this.usersService.findOne(id);
   }
@@ -40,7 +47,8 @@ export class UsersController {
    * @returns 생성된 유저 데이터
    */
   @Post()
-  async createUser(@Body() body: { email: string; name: string }) {
+  @UsePipes(new ValidationPipe()) // 📌 DTO 유효성 검사 활성화
+  async createUser(@Body() body: CreateUserDto) {
     console.log(
       `🛠 [Controller] POST /users 요청 받음 (데이터: ${JSON.stringify(body)})`,
     );
@@ -54,10 +62,12 @@ export class UsersController {
    * @returns 업데이트된 유저 데이터
    */
   @Patch(':id')
-  async updateUser(
-    @Param('id') id: string,
-    @Body() body: { email?: string; name?: string },
-  ) {
+  @UsePipes(new ValidationPipe()) // 📌 DTO 유효성 검사 활성화
+  async updateUser(@Param('id') id: string, @Body() body: UpdateUserDto) {
+    if (!Object.keys(body).length) {
+      // 입력된 body가 비어있을 때
+      throw new BadRequestException('수정할 데이터를 입력해야 합니다.');
+    }
     console.log(
       `🛠 [Controller] PATCH /users/${id} 요청 받음 (변경 데이터: ${JSON.stringify(body)})`,
     );
@@ -70,7 +80,8 @@ export class UsersController {
    * @returns 삭제된 유저 데이터
    */
   @Delete(':id')
-  async deleteUser(@Param('id') id: string) {
+  // UUID 검증 추가
+  async deleteUser(@Param('id', ParseUUIDPipe) id: string) {
     console.log(`🛠 [Controller] DELETE /users/${id} 요청 받음`);
     return this.usersService.deleteUser(id);
   }
