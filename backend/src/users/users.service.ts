@@ -1,9 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {} // 📌 PrismaService 주입
+  constructor(
+    private prisma: PrismaService, // 📌 PrismaService 주입
+    private readonly authService: AuthService, // AuthService 주입
+  ) {}
+
+  /// **관리자 계정 생성 (비밀번호 해싱 적용)**
+  async createAdmin(email: string, password: string) {
+    const hashedPassword = await this.authService.hashPassword(password); // 비밀번호 해싱
+
+    return this.prisma.admin.create({
+      data: {
+        email,
+        password: hashedPassword,
+      },
+    });
+  }
 
   /**
    * 전체 유저 목록 조회

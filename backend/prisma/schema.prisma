@@ -44,3 +44,14 @@ model Comment {
   authorId  String
   createdAt DateTime @default(now())        // 생성 시간 자동 추가
 }
+
+/// **관리자(Admin) 모델**
+/// - 관리자는 블로그 글 작성 등 특정 기능을 수행할 수 있음
+/// - 이메일(`email`)을 사용하여 로그인
+/// - 비밀번호(`password`)는 보안 강화를 위해 `bcrypt`로 해싱하여 저장됨
+model Admin {
+  id        String  @id @default(uuid())  // UUID 기본키 (자동 생성)
+  email     String  @unique               // 관리자 이메일 (중복 방지)
+  password  String                         // 해싱된 비밀번호 저장
+  createdAt DateTime @default(now())       // 생성 시간 자동 추가
+}
