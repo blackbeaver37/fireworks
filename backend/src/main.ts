@@ -8,12 +8,9 @@ async function bootstrap() {
 
   // 📌 이제 Prisma 연결 로그가 먼저 출력됨
   const prismaService = app.get(PrismaService);
-  const user = await prismaService.user.findUnique({
-    where: { email: 'test@example.com' },
-  });
 
-  console.log('✅ 조회된 유저:', user);
+  console.log('✅ connected!!!');
 
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(process.env.PORT ?? 4000);
 }
 bootstrap();
